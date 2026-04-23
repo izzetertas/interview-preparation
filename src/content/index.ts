@@ -1,8 +1,27 @@
+import { css } from "./css";
 import { database } from "./database";
+import { html } from "./html";
+import { javascript } from "./javascript";
+import { mongodb } from "./mongodb";
+import { nodejs } from "./nodejs";
 import { nosql } from "./nosql";
+import { postgres } from "./postgres";
+import { react } from "./react";
+import { typescript } from "./typescript";
 import type { Category } from "./types";
 
-export const categories: Category[] = [database, nosql];
+export const categories: Category[] = [
+  database,
+  postgres,
+  nosql,
+  mongodb,
+  javascript,
+  typescript,
+  react,
+  nodejs,
+  html,
+  css,
+];
 
 if (process.env.NODE_ENV !== "production") {
   const seenCategory = new Set<string>();
