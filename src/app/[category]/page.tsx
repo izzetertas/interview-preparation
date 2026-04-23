@@ -29,7 +29,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">{category.description}</p>
       </div>
 
-      <QuestionList questions={questions} />
+      <QuestionList questions={questions} categorySlug={category.slug} />
     </div>
   );
 }
