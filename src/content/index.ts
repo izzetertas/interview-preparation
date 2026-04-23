@@ -1,7 +1,8 @@
 import { database } from "./database";
+import { nosql } from "./nosql";
 import type { Category } from "./types";
 
-export const categories: Category[] = [database];
+export const categories: Category[] = [database, nosql];
 
 export function getCategory(slug: string): Category | undefined {
   return categories.find((c) => c.slug === slug);
