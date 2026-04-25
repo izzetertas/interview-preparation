@@ -138,7 +138,7 @@ The site supports optional cross-device sync via [Supabase](https://supabase.com
    - Locally: copy [`.env.example`](.env.example) to `.env.local` and fill in.
    - Cloudflare Pages: add to **Project Settings → Environment Variables**.
    - Variable names: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
-6. Re-deploy.
+6. Re-deploy...
 
 **Behavior:**
 - If the env vars are absent, the site runs in localStorage-only mode (no auth UI shown).
