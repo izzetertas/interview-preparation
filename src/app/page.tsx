@@ -1,4 +1,5 @@
 import { CategoryGrid } from "@/components/CategoryGrid";
+import { InterviewsSection } from "@/components/InterviewsSection";
 import { categories } from "@/content";
 
 export default function Home() {
@@ -11,6 +12,8 @@ export default function Home() {
           you can build intuition step by step.
         </p>
       </section>
+
+      <InterviewsSection />
 
       <CategoryGrid categories={categories} />
     </div>

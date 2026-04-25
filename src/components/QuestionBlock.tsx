@@ -4,16 +4,20 @@ import { useState } from "react";
 import type { Question } from "@/content/types";
 import { DifficultyBadge } from "./DifficultyBadge";
 import { FavoriteButton } from "./FavoriteButton";
+import { FocusButton } from "./FocusButton";
 import { Markdown } from "./Markdown";
 
 export function QuestionBlock({
   question,
   categorySlug,
   defaultOpen = false,
+  focusContext,
 }: {
   question: Question;
   categorySlug: string;
   defaultOpen?: boolean;
+  /** When set, an interview-scoped focus button is rendered alongside the favorite button. */
+  focusContext?: { interviewId: string };
 }) {
   const [open, setOpen] = useState(defaultOpen);
 
@@ -22,7 +26,7 @@ export function QuestionBlock({
       <div className="flex items-start gap-3 p-5">
         <button
           onClick={() => setOpen((v) => !v)}
-          className="flex flex-1 items-start justify-between gap-4 text-left"
+          className="flex flex-1 cursor-pointer items-start justify-between gap-4 text-left"
           aria-expanded={open}
         >
           <div className="flex flex-col gap-2">
@@ -49,6 +53,13 @@ export function QuestionBlock({
             ▾
           </span>
         </button>
+        {focusContext && (
+          <FocusButton
+            interviewId={focusContext.interviewId}
+            categorySlug={categorySlug}
+            questionId={question.id}
+          />
+        )}
         <FavoriteButton categorySlug={categorySlug} questionId={question.id} />
       </div>
 

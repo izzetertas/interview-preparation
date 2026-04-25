@@ -16,7 +16,7 @@ export function FavoriteButton({ categorySlug, questionId }: { categorySlug: str
       }}
       aria-label={active ? "Remove from favorites" : "Add to favorites"}
       aria-pressed={active}
-      className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
+      className={`inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full border transition ${
         active
           ? "border-emerald-500 bg-emerald-50 text-emerald-600 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-400"
           : "border-zinc-300 text-zinc-400 hover:border-emerald-400 hover:text-emerald-600 dark:border-zinc-700 dark:hover:text-emerald-400"
