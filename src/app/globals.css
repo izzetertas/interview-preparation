@@ -25,6 +25,13 @@ html {
   font-size: 18px;
 }
 
+/* Hide the native clear button that WebKit/Blink draw on type="search" inputs */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

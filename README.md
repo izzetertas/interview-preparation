@@ -4,6 +4,8 @@ A static, UI-only web app for preparing for IT interviews. Questions are grouped
 
 Built as a personal study resource; the content grows over time.
 
+**Live demo:** [interview-preparation-s1a.pages.dev](https://interview-preparation-s1a.pages.dev) (deployed on Cloudflare Pages)
+
 ## Features
 
 - **Categories → difficulty-sorted questions** (easy → medium → hard)
@@ -50,8 +52,7 @@ src/
 ├── content/
 │   ├── types.ts                # Category / Question types
 │   ├── index.ts                # registry + dev-time uniqueness check
-│   ├── database.ts
-│   └── nosql.ts
+│   └── <category>.ts           # one file per category (database, nosql, javascript, …)
 └── lib/
     └── favorites.tsx           # FavoritesProvider + useFavorites hook
 ```
@@ -124,15 +125,22 @@ Because favorites live in the browser:
 npm run build   # produces the static site in ./out
 ```
 
-The `out/` directory is a plain static bundle. On **Cloudflare Pages**:
+The `out/` directory is a plain static bundle and can be served by any static host.
 
-- Build command: `npm run build`
-- Build output directory: `out`
-- No environment variables required
+### Cloudflare Pages
 
-## Categories
+From the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to Git**, pick this repository, then fill in **Build settings** as:
 
-- 🗄️ **Database** — fundamentals, SQL, indexing, transactions, CAP, sharding
-- 📦 **NoSQL** — data models, storage engines, consistency, replication, sharding, transactions; MongoDB, Redis, DynamoDB, Cassandra, Neo4j
+| Field                  | Value                                    |
+|------------------------|------------------------------------------|
+| Framework preset       | `Next.js (Static HTML Export)` (or `None`) |
+| Build command          | `npm run build`                          |
+| Build output directory | `out`                                    |
+| Root directory (Path)  | *leave empty*                            |
 
-More coming.
+**Environment variables** — none required. If the Node version needs pinning, add:
+
+- `NODE_VERSION` = `20` (or `22`)
+
+After the first successful deploy, every push to the connected branch triggers a new build automatically.
+

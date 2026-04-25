@@ -1,4 +1,4 @@
-import { CategoryCard } from "@/components/CategoryCard";
+import { CategoryGrid } from "@/components/CategoryGrid";
 import { categories } from "@/content";
 
 export default function Home() {
@@ -12,11 +12,7 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {categories.map((c) => (
-          <CategoryCard key={c.slug} category={c} />
-        ))}
-      </section>
+      <CategoryGrid categories={categories} />
     </div>
   );
 }
