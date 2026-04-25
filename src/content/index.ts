@@ -11,20 +11,28 @@ import { containers } from "./containers";
 import { css } from "./css";
 import { database } from "./database";
 import { dataStructures } from "./data-structures";
+import { denoBun } from "./deno-bun";
 import { devops } from "./devops";
 import { dynamodb } from "./dynamodb";
 import { eventbridge } from "./eventbridge";
+import { graphql } from "./graphql";
 import { html } from "./html";
 import { javascript } from "./javascript";
+import { jsEngine } from "./js-engine";
 import { mongodb } from "./mongodb";
+import { monorepos } from "./monorepos";
 import { nestjs } from "./nestjs";
 import { nextjs } from "./nextjs";
 import { nodejs } from "./nodejs";
 import { nosql } from "./nosql";
 import { postgres } from "./postgres";
+import { pwa } from "./pwa";
 import { rds } from "./rds";
 import { react } from "./react";
+import { reactNative } from "./react-native";
+import { realtime } from "./realtime";
 import { redshift } from "./redshift";
+import { restApi } from "./rest-api";
 import { s3 } from "./s3";
 import { samCloudformation } from "./sam-cloudformation";
 import { serverState } from "./server-state";
@@ -46,17 +54,25 @@ export const categories: Category[] = [
   mongodb,
   javascript,
   typescript,
+  jsEngine,
   react,
   nextjs,
   vue,
+  reactNative,
   nodejs,
   nestjs,
+  denoBun,
   stateManagement,
   serverState,
+  graphql,
+  restApi,
+  realtime,
   testing,
   buildTools,
+  monorepos,
   webPerformance,
   browserApis,
+  pwa,
   html,
   css,
   dataStructures,
