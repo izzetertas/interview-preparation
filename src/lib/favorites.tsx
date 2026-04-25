@@ -154,7 +154,13 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     if (status === "signed-in" && userIdRef.current) {
       const supabase = getSupabase();
       if (!supabase) return;
-      supabase.from("favorites").delete().eq("user_id", userIdRef.current);
+      supabase
+        .from("favorites")
+        .delete()
+        .eq("user_id", userIdRef.current)
+        .then(({ error }) => {
+          if (error) console.error("Failed to clear cloud favorites:", error);
+        });
     }
   }, [status]);
 

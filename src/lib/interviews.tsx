@@ -224,7 +224,14 @@ export function InterviewsProvider({ children }: { children: React.ReactNode }) 
       if (status === "signed-in" && userIdRef.current && nextRow) {
         const supabase = getSupabase();
         if (supabase) {
-          supabase.from("interviews").update(nextRow).eq("id", id).eq("user_id", userIdRef.current);
+          supabase
+            .from("interviews")
+            .update(nextRow)
+            .eq("id", id)
+            .eq("user_id", userIdRef.current)
+            .then(({ error }) => {
+              if (error) console.error("Failed to sync interview update:", error);
+            });
         }
       }
     },
@@ -237,7 +244,14 @@ export function InterviewsProvider({ children }: { children: React.ReactNode }) 
       if (status === "signed-in" && userIdRef.current) {
         const supabase = getSupabase();
         if (supabase) {
-          supabase.from("interviews").delete().eq("id", id).eq("user_id", userIdRef.current);
+          supabase
+            .from("interviews")
+            .delete()
+            .eq("id", id)
+            .eq("user_id", userIdRef.current)
+            .then(({ error }) => {
+              if (error) console.error("Failed to sync interview delete:", error);
+            });
         }
       }
     },
@@ -264,7 +278,10 @@ export function InterviewsProvider({ children }: { children: React.ReactNode }) 
             .from("interviews")
             .update({ focus_keys: nextFocus })
             .eq("id", id)
-            .eq("user_id", userIdRef.current);
+            .eq("user_id", userIdRef.current)
+            .then(({ error }) => {
+              if (error) console.error("Failed to sync interview focus:", error);
+            });
         }
       }
     },
