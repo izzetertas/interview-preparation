@@ -777,7 +777,7 @@ function verify(rawBody: string, header: string, secret: string) {
   const t = tPart.split("=")[1];
   const sig = sigPart.split("=")[1];
   const expected = crypto.createHmac("sha256", secret)
-    .update(\`\\${t}.\\${rawBody}\`).digest("hex");
+    .update(\`\\t.\\rawBody\`).digest("hex");
   if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) throw new Error("bad sig");
   if (Date.now() / 1000 - Number(t) > 300) throw new Error("stale");  // replay window
 }
