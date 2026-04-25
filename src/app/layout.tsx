@@ -5,6 +5,7 @@ import "./globals.css";
 import { AuthProvider } from "@/lib/auth";
 import { FavoritesProvider } from "@/lib/favorites";
 import { InterviewsProvider } from "@/lib/interviews";
+import { ProgressProvider } from "@/lib/progress";
 import { AuthMenu } from "@/components/AuthMenu";
 import { BackToTopButton } from "@/components/BackToTopButton";
 import { FavoritesHeaderLink } from "@/components/FavoritesHeaderLink";
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AuthProvider>
           <FavoritesProvider>
             <InterviewsProvider>
+              <ProgressProvider>
               <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80">
                 <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
                   <Link href="/" className="flex items-center gap-2 font-semibold">
@@ -41,6 +43,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 Built with Next.js · Static export · Deployed on Cloudflare Pages
               </footer>
               <BackToTopButton />
+              </ProgressProvider>
             </InterviewsProvider>
           </FavoritesProvider>
         </AuthProvider>

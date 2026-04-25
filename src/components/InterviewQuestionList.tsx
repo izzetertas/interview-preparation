@@ -6,6 +6,7 @@ import { getCategory, sortByDifficulty } from "@/content";
 import { QuestionBlock } from "./QuestionBlock";
 import { favoriteKey } from "@/lib/favorites";
 import type { Interview } from "@/lib/interviews";
+import { useProgress } from "@/lib/progress";
 
 const LEVELS: Difficulty[] = ["easy", "medium", "hard"];
 
@@ -30,6 +31,9 @@ const chipStyles: Record<Difficulty, { active: string; inactive: string }> = {
 export function InterviewQuestionList({ interview }: { interview: Interview }) {
   const [active, setActive] = useState<Set<Difficulty>>(new Set(LEVELS));
   const [focusOnly, setFocusOnly] = useState(false);
+  const [showReady, setShowReady] = useState(false);
+  const [showHidden, setShowHidden] = useState(false);
+  const { readyKeys, hiddenKeys } = useProgress();
 
   const sections = useMemo(() => {
     return interview.categorySlugs
@@ -40,6 +44,23 @@ export function InterviewQuestionList({ interview }: { interview: Interview }) {
 
   const focusSet = useMemo(() => new Set(interview.focusKeys), [interview.focusKeys]);
   const focusCount = focusSet.size;
+
+  const readyCount = useMemo(
+    () =>
+      sections.reduce(
+        (n, s) => n + s.questions.filter((q) => readyKeys.has(favoriteKey(s.category.slug, q.id))).length,
+        0,
+      ),
+    [sections, readyKeys],
+  );
+  const hiddenCount = useMemo(
+    () =>
+      sections.reduce(
+        (n, s) => n + s.questions.filter((q) => hiddenKeys.has(favoriteKey(s.category.slug, q.id))).length,
+        0,
+      ),
+    [sections, hiddenKeys],
+  );
 
   const toggle = (level: Difficulty) => {
     setActive((prev) => {
@@ -55,7 +76,10 @@ export function InterviewQuestionList({ interview }: { interview: Interview }) {
       category,
       questions: questions.filter((q) => {
         if (!active.has(q.difficulty)) return false;
-        if (focusOnly && !focusSet.has(favoriteKey(category.slug, q.id))) return false;
+        const key = favoriteKey(category.slug, q.id);
+        if (focusOnly && !focusSet.has(key)) return false;
+        if (readyKeys.has(key) && !showReady) return false;
+        if (hiddenKeys.has(key) && !showHidden) return false;
         return true;
       }),
     }))
@@ -74,7 +98,7 @@ export function InterviewQuestionList({ interview }: { interview: Interview }) {
               key={level}
               onClick={() => toggle(level)}
               aria-pressed={isOn}
-              className={`inline-flex items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium capitalize transition ${style}`}
+              className={`inline-flex cursor-pointer items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium capitalize transition ${style}`}
             >
               {level}
               {isOn && (
@@ -86,25 +110,62 @@ export function InterviewQuestionList({ interview }: { interview: Interview }) {
           );
         })}
 
+        {(focusCount > 0 || readyCount > 0 || hiddenCount > 0) && (
+          <span aria-hidden className="mx-1 h-6 w-px bg-zinc-200 dark:bg-zinc-800" />
+        )}
+
         {focusCount > 0 && (
-          <>
-            <span aria-hidden className="mx-1 h-6 w-px bg-zinc-200 dark:bg-zinc-800" />
-            <button
-              onClick={() => setFocusOnly((v) => !v)}
-              aria-pressed={focusOnly}
-              className={`inline-flex items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium transition ${
-                focusOnly
-                  ? "border-indigo-500 text-indigo-700 dark:text-indigo-400"
-                  : "border-zinc-200 text-zinc-500 hover:border-indigo-300 hover:text-indigo-700 dark:border-zinc-800 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
-              }`}
-            >
-              <span aria-hidden>🔖</span>
-              Focus only
-              <span className="rounded-full bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-                {focusCount}
-              </span>
-            </button>
-          </>
+          <button
+            onClick={() => setFocusOnly((v) => !v)}
+            aria-pressed={focusOnly}
+            className={`inline-flex cursor-pointer items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium transition ${
+              focusOnly
+                ? "border-indigo-500 text-indigo-700 dark:text-indigo-400"
+                : "border-zinc-200 text-zinc-500 hover:border-indigo-300 hover:text-indigo-700 dark:border-zinc-800 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
+            }`}
+          >
+            <span aria-hidden>🔖</span>
+            Focus only
+            <span className="rounded-full bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+              {focusCount}
+            </span>
+          </button>
+        )}
+
+        {readyCount > 0 && (
+          <button
+            onClick={() => setShowReady((v) => !v)}
+            aria-pressed={showReady}
+            className={`inline-flex cursor-pointer items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium transition ${
+              showReady
+                ? "border-sky-500 text-sky-700 dark:text-sky-400"
+                : "border-zinc-200 text-zinc-500 hover:border-sky-300 hover:text-sky-700 dark:border-zinc-800 dark:hover:border-sky-700 dark:hover:text-sky-400"
+            }`}
+          >
+            <span aria-hidden>✓</span>
+            Show ready
+            <span className="rounded-full bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+              {readyCount}
+            </span>
+          </button>
+        )}
+
+        {hiddenCount > 0 && (
+          <button
+            onClick={() => setShowHidden((v) => !v)}
+            aria-pressed={showHidden}
+            className={`inline-flex cursor-pointer items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium transition ${
+              showHidden
+                ? "border-zinc-500 text-zinc-700 dark:text-zinc-200"
+                : "border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-700 dark:border-zinc-800 dark:hover:border-zinc-500 dark:hover:text-zinc-200"
+            }`}
+          >
+            <span aria-hidden>🙈</span>
+            Show hidden
+            <span className="rounded-full bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+              {hiddenCount}
+            </span>
+          </button>
         )}
       </div>
 

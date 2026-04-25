@@ -5,6 +5,7 @@ import type { Question } from "@/content/types";
 import { DifficultyBadge } from "./DifficultyBadge";
 import { FavoriteButton } from "./FavoriteButton";
 import { FocusButton } from "./FocusButton";
+import { HideButton, ReadyButton } from "./ProgressButtons";
 import { Markdown } from "./Markdown";
 
 export function QuestionBlock({
@@ -53,6 +54,8 @@ export function QuestionBlock({
             ▾
           </span>
         </button>
+        <HideButton categorySlug={categorySlug} questionId={question.id} />
+        <ReadyButton categorySlug={categorySlug} questionId={question.id} />
         {focusContext && (
           <FocusButton
             interviewId={focusContext.interviewId}
