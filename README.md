@@ -109,15 +109,42 @@ Answers are Markdown strings. Supported features:
   ```
   ````
 
-## Favorites
+## Favorites & interviews
 
-Clicking the **★** on a question stores its key in `localStorage` under `interview-prep:favorites` (a JSON array). The value is read once on mount and written back on every change.
-
-Because favorites live in the browser:
+By default, both live in `localStorage` (`interview-prep:favorites`, `interview-prep:interviews`):
 
 - Each device / browser profile has its own list
-- Clearing browser storage removes them
 - No account or network round-trip is involved
+- Clearing browser storage removes them
+
+## Cross-device sync (optional, free)
+
+The site supports optional cross-device sync via [Supabase](https://supabase.com). When enabled, signed-in users have their favorites and interviews stored in a private cloud account and the site syncs from any device.
+
+**Why it's safe:**
+- Authentication via **email magic link** (no password storage).
+- All data is gated by **Row-Level Security** — users only ever read/write `auth.uid() = user_id` rows.
+- The publishable `anon` key in the browser is by design useless without RLS-passing auth.
+
+**Setup (one-time, free):**
+
+1. Create a free Supabase project at [supabase.com](https://supabase.com).
+2. Open the **SQL Editor** and run [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql) — creates `favorites` + `interviews` tables and RLS policies.
+3. **Authentication → URL Configuration** → add to **Redirect URLs**:
+   - `http://localhost:3000/auth/callback/`
+   - `https://your-deployed-domain/auth/callback/`
+4. **Project Settings → API** → copy the **Project URL** and **anon public** key.
+5. Set as environment variables:
+   - Locally: copy [`.env.example`](.env.example) to `.env.local` and fill in.
+   - Cloudflare Pages: add to **Project Settings → Environment Variables**.
+   - Variable names: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+6. Re-deploy.
+
+**Behavior:**
+- If the env vars are absent, the site runs in localStorage-only mode (no auth UI shown).
+- If present, a "Sign in" button appears in the header.
+- On sign-in, the local browser cache is **cleared** (with a confirmation warning) and the cloud account becomes the source of truth.
+- On sign-out, you're back to anonymous localStorage mode.
 
 ## Build & Deploy
 

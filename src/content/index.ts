@@ -1,15 +1,21 @@
 import { algorithms } from "./algorithms";
 import { apiGateway } from "./api-gateway";
 import { aurora } from "./aurora";
+import { awsIam } from "./aws-iam";
+import { awsServerless } from "./aws-serverless";
 import { cloudfront } from "./cloudfront";
+import { cloudSecurity } from "./cloud-security";
+import { containers } from "./containers";
 import { css } from "./css";
 import { database } from "./database";
 import { dataStructures } from "./data-structures";
+import { devops } from "./devops";
 import { dynamodb } from "./dynamodb";
 import { eventbridge } from "./eventbridge";
 import { html } from "./html";
 import { javascript } from "./javascript";
 import { mongodb } from "./mongodb";
+import { nestjs } from "./nestjs";
 import { nodejs } from "./nodejs";
 import { nosql } from "./nosql";
 import { postgres } from "./postgres";
@@ -19,12 +25,14 @@ import { redshift } from "./redshift";
 import { s3 } from "./s3";
 import { samCloudformation } from "./sam-cloudformation";
 import { ses } from "./ses";
+import { sql } from "./sql";
 import { stepFunctions } from "./step-functions";
 import { typescript } from "./typescript";
 import type { Category } from "./types";
 
 export const categories: Category[] = [
   database,
+  sql,
   postgres,
   nosql,
   mongodb,
@@ -32,6 +40,7 @@ export const categories: Category[] = [
   typescript,
   react,
   nodejs,
+  nestjs,
   html,
   css,
   dataStructures,
@@ -47,6 +56,11 @@ export const categories: Category[] = [
   stepFunctions,
   eventbridge,
   samCloudformation,
+  awsServerless,
+  awsIam,
+  cloudSecurity,
+  devops,
+  containers,
 ];
 
 if (process.env.NODE_ENV !== "production") {
