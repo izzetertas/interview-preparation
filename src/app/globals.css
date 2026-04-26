@@ -2,6 +2,8 @@
 @plugin "@tailwindcss/typography";
 @import "highlight.js/styles/github-dark.css";
 
+@variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,11 +16,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 html {
@@ -67,9 +67,7 @@ body {
   font-weight: 500;
 }
 
-@media (prefers-color-scheme: dark) {
-  .prose :where(code):not(pre code) {
-    background: rgb(39 39 42);
-    color: rgb(244 244 245);
-  }
+.dark .prose :where(code):not(pre code) {
+  background: rgb(39 39 42);
+  color: rgb(244 244 245);
 }

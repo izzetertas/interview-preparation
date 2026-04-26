@@ -9,6 +9,7 @@ import { ProgressProvider } from "@/lib/progress";
 import { AuthMenu } from "@/components/AuthMenu";
 import { BackToTopButton } from "@/components/BackToTopButton";
 import { FavoritesHeaderLink } from "@/components/FavoritesHeaderLink";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   </Link>
                   <div className="flex items-center gap-3">
                     <FavoritesHeaderLink />
+                    <ThemeToggle />
                     <AuthMenu />
                   </div>
                 </div>
