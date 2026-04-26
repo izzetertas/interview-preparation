@@ -50,6 +50,8 @@ import { stateManagement } from "./state-management";
 import { messageQueues } from "./message-queues";
 import { observability } from "./observability";
 import { stepFunctions } from "./step-functions";
+import { systemDesign } from "./system-design";
+import { systemDesignCases } from "./system-design-cases";
 import { testing } from "./testing";
 import { trpc } from "./trpc";
 import { typescript } from "./typescript";
@@ -121,6 +123,8 @@ export const categories: Category[] = [
   trpc,
   messageQueues,
   observability,
+  systemDesign,
+  systemDesignCases,
 ];
 
 if (process.env.NODE_ENV !== "production") {
