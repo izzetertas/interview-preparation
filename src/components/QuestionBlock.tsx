@@ -24,7 +24,7 @@ export function QuestionBlock({
 
   return (
     <article className="rounded-xl border border-zinc-200 bg-white shadow-sm transition hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="flex flex-wrap items-start gap-3 p-5">
+      <div className="flex flex-wrap items-start gap-3 p-3 sm:p-5">
         <button
           onClick={() => setOpen((v) => !v)}
           className="flex w-full md:flex-1 cursor-pointer items-start justify-between gap-4 text-left"

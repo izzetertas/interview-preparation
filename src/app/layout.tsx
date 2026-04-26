@@ -27,7 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <InterviewsProvider>
               <ProgressProvider>
               <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80">
-                <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+                <div className="mx-auto flex max-w-5xl flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
                   <Link href="/" className="flex items-center gap-2 font-semibold">
                     <span className="text-xl" aria-hidden>🎯</span>
                     <span>IT Interview Prep</span>
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   </div>
                 </div>
               </header>
-              <main className="mx-auto w-full max-w-5xl px-6 py-10">{children}</main>
+              <main className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">{children}</main>
               <footer className="border-t border-zinc-200 py-8 text-center text-xs text-zinc-500 dark:border-zinc-800">
                 Built with Next.js · Static export · Deployed on Cloudflare Pages
               </footer>
