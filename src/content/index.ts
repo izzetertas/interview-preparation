@@ -66,6 +66,7 @@ import { vue } from "./vue";
 import { webassembly } from "./webassembly";
 import { webComponents } from "./web-components";
 import { webPerformance } from "./web-performance";
+export { categoryGroups } from "./groups";
 import type { Category } from "./types";
 
 export const categories: Category[] = [
