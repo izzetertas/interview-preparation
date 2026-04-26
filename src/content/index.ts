@@ -19,6 +19,12 @@ import { electron } from "./electron";
 import { devops } from "./devops";
 import { dynamodb } from "./dynamodb";
 import { eventbridge } from "./eventbridge";
+import { django } from "./django";
+import { fastapi } from "./fastapi";
+import { python } from "./python";
+import { pythonAsync } from "./python-async";
+import { pythonTooling } from "./python-tooling";
+import { pydanticSqlalchemy } from "./pydantic-sqlalchemy";
 import { graphql } from "./graphql";
 import { grpc } from "./grpc";
 import { html } from "./html";
@@ -78,6 +84,12 @@ export const categories: Category[] = [
   reactNative,
   nodejs,
   nestjs,
+  python,
+  fastapi,
+  django,
+  pythonAsync,
+  pydanticSqlalchemy,
+  pythonTooling,
   httpFrameworks,
   denoBun,
   stateManagement,
