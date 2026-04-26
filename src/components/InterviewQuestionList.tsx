@@ -31,7 +31,7 @@ const chipStyles: Record<Difficulty, { active: string; inactive: string }> = {
 export function InterviewQuestionList({ interview }: { interview: Interview }) {
   const [active, setActive] = useState<Set<Difficulty>>(new Set(LEVELS));
   const [focusOnly, setFocusOnly] = useState(false);
-  const [showReady, setShowReady] = useState(false);
+  const [readyOnly, setReadyOnly] = useState(false);
   const [showHidden, setShowHidden] = useState(false);
   const { readyKeys, hiddenKeys } = useProgress();
 
@@ -62,6 +62,14 @@ export function InterviewQuestionList({ interview }: { interview: Interview }) {
     [sections, hiddenKeys],
   );
 
+  const isFiltered = active.size < LEVELS.length || focusOnly || readyOnly;
+
+  const clearFilters = () => {
+    setActive(new Set(LEVELS));
+    setFocusOnly(false);
+    setReadyOnly(false);
+  };
+
   const toggle = (level: Difficulty) => {
     setActive((prev) => {
       const next = new Set(prev);
@@ -77,9 +85,11 @@ export function InterviewQuestionList({ interview }: { interview: Interview }) {
       questions: questions.filter((q) => {
         if (!active.has(q.difficulty)) return false;
         const key = favoriteKey(category.slug, q.id);
-        if (focusOnly && !focusSet.has(key)) return false;
-        if (readyKeys.has(key) && !showReady) return false;
-        if (hiddenKeys.has(key) && !showHidden) return false;
+        const isFocused = focusSet.has(key);
+        if (focusOnly && !isFocused) return false;
+        if (readyOnly && !readyKeys.has(key) && !isFocused) return false;
+        if (!readyOnly && !focusOnly && readyKeys.has(key)) return false;
+        if (hiddenKeys.has(key) && !showHidden && !isFocused) return false;
         return true;
       }),
     }))
@@ -115,56 +125,59 @@ export function InterviewQuestionList({ interview }: { interview: Interview }) {
         )}
 
         {focusCount > 0 && (
-          <button
-            onClick={() => setFocusOnly((v) => !v)}
-            aria-pressed={focusOnly}
-            className={`inline-flex cursor-pointer items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium transition ${
-              focusOnly
-                ? "border-indigo-500 text-indigo-700 dark:text-indigo-400"
-                : "border-zinc-200 text-zinc-500 hover:border-indigo-300 hover:text-indigo-700 dark:border-zinc-800 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
-            }`}
+          <FilterIconButton
+            onClick={() => { setFocusOnly((v) => !v); setActive(new Set(LEVELS)); }}
+            active={focusOnly}
+            count={focusCount}
+            label={focusOnly ? "Show all (focus filter on)" : "Show focused only"}
+            activeClass="border-indigo-500 bg-indigo-50 text-indigo-600 dark:border-indigo-500/40 dark:bg-indigo-500/10 dark:text-indigo-400"
+            inactiveClass="border-zinc-300 text-zinc-400 hover:border-indigo-400 hover:text-indigo-600 dark:border-zinc-700 dark:hover:text-indigo-400"
           >
-            <span aria-hidden>🔖</span>
-            Focus only
-            <span className="rounded-full bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-              {focusCount}
-            </span>
-          </button>
+            <svg viewBox="0 0 20 20" fill={focusOnly ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.6" className="h-4 w-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 3h10v15l-5-3.5L5 18V3z" />
+            </svg>
+          </FilterIconButton>
         )}
 
         {readyCount > 0 && (
-          <button
-            onClick={() => setShowReady((v) => !v)}
-            aria-pressed={showReady}
-            className={`inline-flex cursor-pointer items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium transition ${
-              showReady
-                ? "border-sky-500 text-sky-700 dark:text-sky-400"
-                : "border-zinc-200 text-zinc-500 hover:border-sky-300 hover:text-sky-700 dark:border-zinc-800 dark:hover:border-sky-700 dark:hover:text-sky-400"
-            }`}
+          <FilterIconButton
+            onClick={() => { setReadyOnly((v) => !v); setActive(new Set(LEVELS)); }}
+            active={readyOnly}
+            count={readyCount}
+            label={readyOnly ? "Show all (ready filter on)" : "Show ready only"}
+            activeClass="border-sky-500 bg-sky-50 text-sky-600 dark:border-sky-500/40 dark:bg-sky-500/10 dark:text-sky-400"
+            inactiveClass="border-zinc-300 text-zinc-400 hover:border-sky-400 hover:text-sky-600 dark:border-zinc-700 dark:hover:text-sky-400"
           >
-            <span aria-hidden>✓</span>
-            Show ready
-            <span className="rounded-full bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-              {readyCount}
-            </span>
-          </button>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4" aria-hidden>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l3 3 7-7" />
+            </svg>
+          </FilterIconButton>
         )}
 
         {hiddenCount > 0 && (
-          <button
+          <FilterIconButton
             onClick={() => setShowHidden((v) => !v)}
-            aria-pressed={showHidden}
-            className={`inline-flex cursor-pointer items-center gap-2 rounded-full border bg-transparent px-3.5 py-1.5 text-sm font-medium transition ${
-              showHidden
-                ? "border-zinc-500 text-zinc-700 dark:text-zinc-200"
-                : "border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-700 dark:border-zinc-800 dark:hover:border-zinc-500 dark:hover:text-zinc-200"
-            }`}
+            active={showHidden}
+            count={hiddenCount}
+            label={showHidden ? "Hide hidden questions" : "Show hidden questions"}
+            activeClass="border-zinc-500 bg-zinc-100 text-zinc-700 dark:border-zinc-400/60 dark:bg-zinc-700/40 dark:text-zinc-200"
+            inactiveClass="border-zinc-300 text-zinc-400 hover:border-zinc-500 hover:text-zinc-700 dark:border-zinc-700 dark:hover:text-zinc-200"
           >
-            <span aria-hidden>🙈</span>
-            Show hidden
-            <span className="rounded-full bg-zinc-100 px-1.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-              {hiddenCount}
-            </span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4" aria-hidden>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 10s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" />
+              <circle cx="10" cy="10" r="2.2" />
+              <path strokeLinecap="round" d="M3 3l14 14" />
+            </svg>
+          </FilterIconButton>
+        )}
+
+        {isFiltered && (
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-zinc-200 bg-transparent px-3.5 py-1.5 text-sm font-medium text-zinc-500 transition hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-800 dark:hover:border-zinc-600 dark:hover:text-zinc-100"
+          >
+            ✕ Clear filters
           </button>
         )}
       </div>
@@ -205,5 +218,37 @@ export function InterviewQuestionList({ interview }: { interview: Interview }) {
         </div>
       )}
     </div>
+  );
+}
+
+function FilterIconButton({
+  onClick,
+  active,
+  count,
+  label,
+  activeClass,
+  inactiveClass,
+  children,
+}: {
+  onClick: () => void;
+  active: boolean;
+  count: number;
+  label: string;
+  activeClass: string;
+  inactiveClass: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      aria-label={label}
+      title={label}
+      className={`inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full border px-3 transition ${active ? activeClass : inactiveClass}`}
+    >
+      {children}
+      <span className="text-xs font-semibold">{count}</span>
+    </button>
   );
 }
