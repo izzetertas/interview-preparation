@@ -20,9 +20,12 @@ import { devops } from "./devops";
 import { dynamodb } from "./dynamodb";
 import { eventbridge } from "./eventbridge";
 import { graphql } from "./graphql";
+import { grpc } from "./grpc";
 import { html } from "./html";
+import { httpFrameworks } from "./http-frameworks";
 import { javascript } from "./javascript";
 import { jsEngine } from "./js-engine";
+import { microservices } from "./microservices";
 import { mongodb } from "./mongodb";
 import { monorepos } from "./monorepos";
 import { nestjs } from "./nestjs";
@@ -30,6 +33,7 @@ import { nextjs } from "./nextjs";
 import { nodejs } from "./nodejs";
 import { nosql } from "./nosql";
 import { postgres } from "./postgres";
+import { prisma } from "./prisma";
 import { pwa } from "./pwa";
 import { rds } from "./rds";
 import { react } from "./react";
@@ -43,8 +47,11 @@ import { serverState } from "./server-state";
 import { ses } from "./ses";
 import { sql } from "./sql";
 import { stateManagement } from "./state-management";
+import { messageQueues } from "./message-queues";
+import { observability } from "./observability";
 import { stepFunctions } from "./step-functions";
 import { testing } from "./testing";
+import { trpc } from "./trpc";
 import { typescript } from "./typescript";
 import { tailwind } from "./tailwind";
 import { vue } from "./vue";
@@ -57,6 +64,7 @@ export const categories: Category[] = [
   database,
   sql,
   postgres,
+  prisma,
   nosql,
   mongodb,
   javascript,
@@ -68,10 +76,12 @@ export const categories: Category[] = [
   reactNative,
   nodejs,
   nestjs,
+  httpFrameworks,
   denoBun,
   stateManagement,
   serverState,
   graphql,
+  grpc,
   restApi,
   auth,
   realtime,
@@ -99,6 +109,7 @@ export const categories: Category[] = [
   awsServerless,
   awsIam,
   cloudSecurity,
+  microservices,
   devops,
   containers,
   webassembly,
@@ -107,6 +118,9 @@ export const categories: Category[] = [
   cssInJs,
   webComponents,
   browserSecurity,
+  trpc,
+  messageQueues,
+  observability,
 ];
 
 if (process.env.NODE_ENV !== "production") {
