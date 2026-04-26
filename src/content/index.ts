@@ -1,17 +1,21 @@
 import { algorithms } from "./algorithms";
 import { apiGateway } from "./api-gateway";
+import { auth } from "./auth";
 import { aurora } from "./aurora";
 import { awsIam } from "./aws-iam";
 import { awsServerless } from "./aws-serverless";
 import { browserApis } from "./browser-apis";
+import { browserSecurity } from "./browser-security";
 import { buildTools } from "./build-tools";
 import { cloudfront } from "./cloudfront";
 import { cloudSecurity } from "./cloud-security";
 import { containers } from "./containers";
 import { css } from "./css";
+import { cssInJs } from "./css-in-js";
 import { database } from "./database";
 import { dataStructures } from "./data-structures";
 import { denoBun } from "./deno-bun";
+import { electron } from "./electron";
 import { devops } from "./devops";
 import { dynamodb } from "./dynamodb";
 import { eventbridge } from "./eventbridge";
@@ -42,7 +46,10 @@ import { stateManagement } from "./state-management";
 import { stepFunctions } from "./step-functions";
 import { testing } from "./testing";
 import { typescript } from "./typescript";
+import { tailwind } from "./tailwind";
 import { vue } from "./vue";
+import { webassembly } from "./webassembly";
+import { webComponents } from "./web-components";
 import { webPerformance } from "./web-performance";
 import type { Category } from "./types";
 
@@ -66,6 +73,7 @@ export const categories: Category[] = [
   serverState,
   graphql,
   restApi,
+  auth,
   realtime,
   testing,
   buildTools,
@@ -93,6 +101,12 @@ export const categories: Category[] = [
   cloudSecurity,
   devops,
   containers,
+  webassembly,
+  electron,
+  tailwind,
+  cssInJs,
+  webComponents,
+  browserSecurity,
 ];
 
 if (process.env.NODE_ENV !== "production") {
