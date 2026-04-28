@@ -1,4 +1,8 @@
+import { aiEngineering } from "./ai-engineering";
 import { algorithms } from "./algorithms";
+import { llms } from "./llms";
+import { mlFundamentals } from "./ml-fundamentals";
+import { mlops } from "./mlops";
 import { apiGateway } from "./api-gateway";
 import { auth } from "./auth";
 import { aurora } from "./aurora";
@@ -138,6 +142,10 @@ export const categories: Category[] = [
   observability,
   systemDesign,
   systemDesignCases,
+  aiEngineering,
+  llms,
+  mlFundamentals,
+  mlops,
 ];
 
 if (process.env.NODE_ENV !== "production") {

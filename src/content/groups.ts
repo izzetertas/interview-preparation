@@ -77,4 +77,9 @@ export const categoryGroups: CategoryGroup[] = [
     icon: "🔩",
     slugs: ["webassembly", "electron"],
   },
+  {
+    title: "AI & Machine Learning",
+    icon: "🤖",
+    slugs: ["llms", "ai-engineering", "ml-fundamentals", "mlops"],
+  },
 ];
