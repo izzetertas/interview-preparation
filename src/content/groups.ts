@@ -93,6 +93,11 @@ export const categoryGroups: CategoryGroup[] = [
     slugs: ["llms", "ai-engineering", "ml-fundamentals", "mlops"],
   },
   {
+    title: "Java",
+    icon: "☕",
+    slugs: ["java", "java-concurrency", "spring-boot", "spring-data"],
+  },
+  {
     title: "STAR Interviews",
     icon: "⭐",
     slugs: ["star-behavioral", "star-leadership"],

@@ -78,6 +78,10 @@ import { vue } from "./vue";
 import { webassembly } from "./webassembly";
 import { webComponents } from "./web-components";
 import { webPerformance } from "./web-performance";
+import { java } from "./java";
+import { javaConcurrency } from "./java-concurrency";
+import { springBoot } from "./spring-boot";
+import { springData } from "./spring-data";
 import { starBehavioral } from "./star-behavioral";
 import { starLeadership } from "./star-leadership";
 export { categoryGroups } from "./groups";
@@ -164,6 +168,10 @@ export const categories: Category[] = [
   dotnetMaui,
   dotnetArchitecture,
   azure,
+  java,
+  javaConcurrency,
+  springBoot,
+  springData,
   starBehavioral,
   starLeadership,
 ];
