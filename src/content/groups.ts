@@ -78,6 +78,16 @@ export const categoryGroups: CategoryGroup[] = [
     slugs: ["webassembly", "electron"],
   },
   {
+    title: ".NET",
+    icon: "🔷",
+    slugs: ["csharp", "csharp-async", "aspnet-core", "ef-core", "dotnet-architecture", "blazor", "dotnet-maui"],
+  },
+  {
+    title: "Azure",
+    icon: "🔵",
+    slugs: ["azure"],
+  },
+  {
     title: "AI & Machine Learning",
     icon: "🤖",
     slugs: ["llms", "ai-engineering", "ml-fundamentals", "mlops"],

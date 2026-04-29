@@ -38,6 +38,14 @@ import { jsEngine } from "./js-engine";
 import { microservices } from "./microservices";
 import { mongodb } from "./mongodb";
 import { monorepos } from "./monorepos";
+import { aspnetCore } from "./aspnet-core";
+import { azure } from "./azure";
+import { blazor } from "./blazor";
+import { csharp } from "./csharp";
+import { csharpAsync } from "./csharp-async";
+import { dotnetArchitecture } from "./dotnet-architecture";
+import { dotnetMaui } from "./dotnet-maui";
+import { efCore } from "./ef-core";
 import { nestjs } from "./nestjs";
 import { nextjs } from "./nextjs";
 import { nodejs } from "./nodejs";
@@ -88,6 +96,7 @@ export const categories: Category[] = [
   vue,
   reactNative,
   nodejs,
+  aspnetCore,
   nestjs,
   python,
   fastapi,
@@ -146,6 +155,13 @@ export const categories: Category[] = [
   llms,
   mlFundamentals,
   mlops,
+  csharp,
+  csharpAsync,
+  efCore,
+  blazor,
+  dotnetMaui,
+  dotnetArchitecture,
+  azure,
 ];
 
 if (process.env.NODE_ENV !== "production") {
