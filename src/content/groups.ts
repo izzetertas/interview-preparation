@@ -92,4 +92,9 @@ export const categoryGroups: CategoryGroup[] = [
     icon: "🤖",
     slugs: ["llms", "ai-engineering", "ml-fundamentals", "mlops"],
   },
+  {
+    title: "STAR Interviews",
+    icon: "⭐",
+    slugs: ["star-behavioral", "star-leadership"],
+  },
 ];

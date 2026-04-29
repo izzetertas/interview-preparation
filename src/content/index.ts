@@ -78,6 +78,8 @@ import { vue } from "./vue";
 import { webassembly } from "./webassembly";
 import { webComponents } from "./web-components";
 import { webPerformance } from "./web-performance";
+import { starBehavioral } from "./star-behavioral";
+import { starLeadership } from "./star-leadership";
 export { categoryGroups } from "./groups";
 import type { Category } from "./types";
 
@@ -162,6 +164,8 @@ export const categories: Category[] = [
   dotnetMaui,
   dotnetArchitecture,
   azure,
+  starBehavioral,
+  starLeadership,
 ];
 
 if (process.env.NODE_ENV !== "production") {
